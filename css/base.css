@@ -1,0 +1,263 @@
+/* ==========================================================================
+   BASE — fonts, design tokens, reset, typography, paper textures
+   Bryan Erga Satria · Portfolio
+   ========================================================================== */
+
+@font-face {
+  font-family: "Jersey 10";
+  src: url("../assets/fonts/jersey-10-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/inter-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Mono";
+  src: url("../assets/fonts/space-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Mono";
+  src: url("../assets/fonts/space-mono-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Caveat";
+  src: url("../assets/fonts/caveat-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Caveat";
+  src: url("../assets/fonts/caveat-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EB Garamond";
+  src: url("../assets/fonts/eb-garamond-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+
+:root {
+  /* colour */
+  --paper: #f5f3ed;
+  --paper-line: #d9d6cc;
+  --grey: #dcd9d1;
+  --surface: #ffffff;
+  --ink: #111111;
+  --muted: #666666;
+  --border: #d8d5cc;
+  --yellow: #f0cf54;
+  --coral: #ef4b3f;
+  --mint: #aedbc9;
+  --cream: #eadca6;
+  --lavender: #b9c5ee;
+  --blue: #3355d1;
+  --red-serif: #b3262a;
+
+  /* type */
+  --font-display: "Jersey 10", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
+  --font-serif: "EB Garamond", Garamond, Georgia, serif;
+
+  /* layout */
+  --max: 1200px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --nav-h: 4.25rem;
+  --radius: 20px;
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 0.8, 0.3, 1);
+
+  /* paper grain (inline SVG noise, no extra request) */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* small icon: diagonal arrow (used by .link-arrow) */
+  --arrow-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 10 10 2M4 2h6v6' fill='none' stroke='%23111' stroke-width='1.8' stroke-linecap='square'/%3E%3C/svg%3E");
+  --arrow-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 10 10 2M4 2h6v6' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='square'/%3E%3C/svg%3E");
+}
+
+/* ---------- Reset ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font: 400 1rem/1.6 var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img,
+svg,
+picture {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure {
+  margin: 0;
+}
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Accessibility helpers ---------------------------------------- */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: #fff;
+  font: 700 0.8rem/1 var(--font-mono);
+  text-transform: uppercase;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* ---------- Layout helpers ------------------------------------------------- */
+.container {
+  width: min(100% - 2 * var(--gutter), var(--max));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 8vw, 7rem);
+}
+
+/* ---------- Paper surfaces -------------------------------------------------- */
+/* ruled notebook paper (hero, featured works, contact) */
+.paper-lines {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 31px,
+    var(--paper-line) 31px 32px
+  );
+}
+
+/* blue graph paper (about) */
+.paper-grid {
+  background-color: #e6e5e1;
+  background-image:
+    linear-gradient(rgba(74, 104, 190, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 104, 190, 0.2) 1px, transparent 1px),
+    var(--noise);
+  background-size: 28px 28px, 28px 28px, 180px 180px;
+}
+
+/* ---------- Typography ------------------------------------------------------ */
+/* Pixel display face — big headings */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+/* handwritten annotations */
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+/* small mono label */
+.mono {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* section header block (handwritten lead-in + display title + taped note) */
+.section-head {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+.section-head__title {
+  font-size: clamp(3.6rem, 9vw, 7rem);
+}

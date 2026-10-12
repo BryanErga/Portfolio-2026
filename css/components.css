@@ -1,0 +1,803 @@
+/* ==========================================================================
+   COMPONENTS — reusable pieces shared across every page
+   ========================================================================== */
+
+/* ---------- Navbar ---------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 249, 245, 0.94);
+  border-bottom: 1px solid var(--border);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: var(--nav-h);
+  width: min(100% - 2 * var(--gutter), 1360px);
+  margin-inline: auto;
+}
+
+.nav__brand {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  transition: transform 0.3s var(--ease);
+}
+.nav__brand:hover {
+  transform: rotate(-12deg) scale(1.08);
+}
+
+.nav__links {
+  display: flex;
+  gap: 0.2rem;
+  margin-left: 0.75rem;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.15rem;
+  font: 700 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+.nav__link svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+}
+/* underline that slides in on hover */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 1.15rem;
+  right: 1.15rem;
+  bottom: 0.45rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s var(--ease);
+}
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+.nav__link[aria-current="page"] {
+  background: var(--yellow);
+}
+.nav__link[aria-current="page"]::after {
+  display: none;
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-left: auto;
+}
+.nav__socials {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* round social buttons */
+.dot-btn {
+  display: grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 50%;
+  color: var(--ink);
+  box-shadow: 0 0 0 2px #fff, 2px 3px 4px 2px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s var(--ease);
+}
+.dot-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+.dot-btn:hover {
+  transform: translateY(-3px) rotate(-6deg);
+}
+.dot-btn--yellow { background: var(--yellow); }
+.dot-btn--coral  { background: var(--coral); }
+.dot-btn--mint   { background: var(--mint); }
+
+/* ---------- Buttons --------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.2rem;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: 700 0.76rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
+    background-color 0.2s, color 0.2s;
+}
+.btn svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.btn--sm {
+  padding: 0.65rem 0.95rem;
+}
+
+/* dark button with coloured square icon, as in the reference */
+.btn--dark {
+  gap: 0.9rem;
+  padding: 0.45rem 1.3rem 0.45rem 0.45rem;
+  background: var(--ink);
+  color: #fff;
+}
+.btn--dark:hover {
+  box-shadow: 4px 4px 0 var(--coral);
+}
+.btn__icon {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  background: var(--coral);
+}
+.btn__icon::after {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
+  background: var(--arrow-light) center / contain no-repeat;
+}
+
+.btn--yellow {
+  background: var(--yellow);
+}
+
+/* text link with underline + diagonal arrow */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid currentColor;
+  font: 700 0.76rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.link-arrow::after {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--arrow-dark) center / contain no-repeat;
+  transition: transform 0.2s var(--ease);
+}
+.link-arrow:hover::after {
+  transform: translate(3px, -3px);
+}
+.link-arrow--light {
+  color: #fff;
+}
+.link-arrow--light::after {
+  background-image: var(--arrow-light);
+}
+
+/* ---------- Stickers, notes, tape, doodles ----------------------------------- */
+.chip {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font: 700 0.7rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+.chip--mint  { background: var(--mint); }
+.chip--cream { background: var(--cream); }
+.chip--yellow { background: var(--yellow); }
+
+.note {
+  display: inline-block;
+  padding: 0.5rem 0.95rem;
+  background: var(--yellow);
+  color: var(--ink);
+  font: 700 1.2rem/1.1 var(--font-hand);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
+  transform: rotate(-2.5deg);
+}
+.note--mint  { background: var(--mint); transform: rotate(2deg); }
+.note--cream { background: var(--cream); transform: rotate(-1.2deg); }
+
+/* translucent washi tape; ends are notched */
+.tape {
+  position: absolute;
+  z-index: 3;
+  width: 5.4rem;
+  height: 1.7rem;
+  background: rgba(240, 207, 84, 0.62);
+  transform: rotate(-5deg);
+  pointer-events: none;
+  clip-path: polygon(0 0, 4% 12%, 0 25%, 4% 38%, 0 50%, 4% 62%, 0 75%, 4% 88%, 0 100%,
+    100% 100%, 96% 88%, 100% 75%, 96% 62%, 100% 50%, 96% 38%, 100% 25%, 96% 12%, 100% 0);
+}
+.tape--white { background: rgba(255, 255, 255, 0.7); }
+.tape--pink  { background: rgba(244, 163, 190, 0.6); }
+.tape--blue  { background: rgba(160, 182, 240, 0.65); }
+
+/* double hand-drawn underline */
+.hand--underlined {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.65rem;
+}
+.hand--underlined::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  height: 9px;
+  background:
+    linear-gradient(currentColor 0 0) top / 100% 2px no-repeat,
+    linear-gradient(currentColor 0 0) bottom right / 70% 2px no-repeat;
+  transform: rotate(-1.2deg);
+}
+
+/* inline svg doodles (arrows, scribbles) */
+.doodle {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* ---------- Tags ---------------------------------------------------------------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tag {
+  display: inline-block;
+  padding: 0.6rem 0.85rem;
+  background: var(--ink);
+  color: #fff;
+  font: 700 0.7rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s var(--ease);
+}
+a.tag:hover {
+  background: #fff;
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+/* ---------- Folder panels (Featured Works) --------------------------------------- */
+.folders {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.folder {
+  --folder: var(--yellow);
+  position: relative;
+}
+.folder--coral {
+  --folder: var(--coral);
+}
+
+.folder__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 3.8rem 1rem 1.6rem;
+  background: var(--folder);
+  font: 700 0.74rem/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 2.2rem) 0, 100% 100%, 0 100%);
+}
+
+.folder__body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  min-height: 27rem;
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  background: var(--folder);
+}
+
+.folder__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+.folder__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.folder__meta::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.folder__title {
+  font: 700 clamp(2.6rem, 6vw, 4.4rem)/1 var(--font-body);
+  letter-spacing: -0.04em;
+}
+.folder__text {
+  max-width: 24rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.folder__info .tags {
+  margin-top: auto;
+  padding-top: 1.5rem;
+}
+
+.folder__media {
+  position: relative;
+  display: block;
+  align-self: center;
+}
+
+/* paper collage of posters (Graphic Design folder) */
+.collage {
+  position: relative;
+  min-height: clamp(19rem, 34vw, 25rem);
+}
+.collage__item {
+  position: absolute;
+  width: 46%;
+  padding: 0.4rem;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  transition: transform 0.4s var(--ease);
+}
+.collage__item img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.collage__item:nth-child(1) { left: 0;   top: 14%; transform: rotate(-7deg); }
+.collage__item:nth-child(2) { left: 27%; top: 0;   transform: rotate(2deg); z-index: 2; }
+.collage__item:nth-child(3) { right: 0;  top: 17%; transform: rotate(8deg); }
+
+.folder:hover .collage__item:nth-child(1) { transform: rotate(-10deg) translate(-8px, 4px); }
+.folder:hover .collage__item:nth-child(2) { transform: rotate(1deg) translateY(-8px); }
+.folder:hover .collage__item:nth-child(3) { transform: rotate(11deg) translate(8px, 4px); }
+
+/* ---------- Video player mock (placeholder visual) ----------------------------------- */
+.player {
+  position: relative;
+  border: 3px solid var(--ink);
+  background: var(--ink);
+  box-shadow: 8px 8px 0 rgba(17, 17, 17, 0.9);
+}
+.player__screen {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 5px),
+    radial-gradient(120% 120% at 30% 20%, #3a3a3a 0%, #151515 60%);
+}
+.player__rec {
+  position: absolute;
+  top: 0.9rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font: 700 0.66rem/1 var(--font-mono);
+  letter-spacing: 0.1em;
+}
+.player__rec::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--coral);
+}
+.player__play {
+  display: grid;
+  place-items: center;
+  width: clamp(3.6rem, 9vw, 5.5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--yellow);
+  transition: transform 0.3s var(--ease);
+}
+.player__play::before {
+  content: "";
+  margin-left: 8%;
+  border-style: solid;
+  border-width: 0.9rem 0 0.9rem 1.5rem;
+  border-color: transparent transparent transparent var(--ink);
+}
+.player:hover .player__play {
+  transform: scale(1.08);
+}
+.player__timeline {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.7rem 0.9rem 0.9rem;
+  background: #1c1c1c;
+}
+.player__row {
+  display: flex;
+  gap: 0.3rem;
+}
+.clip {
+  height: 0.8rem;
+  border-radius: 2px;
+  background: var(--yellow);
+  flex: none;
+  width: var(--w, 20%);
+}
+.clip--coral { background: var(--coral); }
+.clip--mint  { background: var(--mint); }
+.clip--ghost { background: transparent; }
+.player__stamp {
+  position: absolute;
+  right: -0.8rem;
+  bottom: 18%;
+  padding: 0.55rem 0.9rem;
+  border: 3px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font: 700 0.8rem/1 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-7deg);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* ---------- Postage-stamp photo frame (About) ----------------------------------------- */
+.stamp-wrap {
+  position: relative;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.22));
+  transform: rotate(-2deg);
+}
+.stamp {
+  --r: 8px;
+  --g: 22px;
+  padding: calc(var(--r) * 2.4);
+  background: #fff;
+  -webkit-mask:
+    radial-gradient(circle var(--r) at 50% 0, #0000 97%, #000) 50% 0 / var(--g) var(--r) repeat-x,
+    radial-gradient(circle var(--r) at 50% 100%, #0000 97%, #000) 50% 100% / var(--g) var(--r) repeat-x,
+    radial-gradient(circle var(--r) at 0 50%, #0000 97%, #000) 0 50% / var(--r) var(--g) repeat-y,
+    radial-gradient(circle var(--r) at 100% 50%, #0000 97%, #000) 100% 50% / var(--r) var(--g) repeat-y,
+    linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)) no-repeat;
+          mask:
+    radial-gradient(circle var(--r) at 50% 0, #0000 97%, #000) 50% 0 / var(--g) var(--r) repeat-x,
+    radial-gradient(circle var(--r) at 50% 100%, #0000 97%, #000) 50% 100% / var(--g) var(--r) repeat-x,
+    radial-gradient(circle var(--r) at 0 50%, #0000 97%, #000) 0 50% / var(--r) var(--g) repeat-y,
+    radial-gradient(circle var(--r) at 100% 50%, #0000 97%, #000) 100% 50% / var(--r) var(--g) repeat-y,
+    linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)) no-repeat;
+}
+.stamp__photo {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--yellow);
+}
+.stamp__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 12%;
+  transform: scale(1.22);
+  transform-origin: 48% 18%;
+}
+
+/* ---------- Software tool tiles ------------------------------------------------------- */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 0.8rem;
+}
+.tool {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  width: 4.4rem;
+}
+.tool__icon {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border: 2px solid currentColor;
+  border-radius: 0.85rem;
+  background: var(--tile, var(--ink));
+  font: 700 1.1rem/1 var(--font-body);
+  letter-spacing: -0.04em;
+  transition: transform 0.25s var(--ease);
+}
+.tool__icon img {
+  display: block;
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+.tool:hover .tool__icon {
+  transform: translateY(-3px) rotate(-4deg);
+}
+.tool__name {
+  font: 700 0.6rem/1.15 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.tool__icon--ps { --tile: #001e36; color: #31a8ff; }
+.tool__icon--ai { --tile: #2e1400; color: #ff9a00; }
+.tool__icon--pr { --tile: #0b0b4a; color: #a9a9ff; }
+.tool__icon--ae { --tile: #1a083b; color: #c99aff; }
+.tool__icon--cc { --tile: #f6f3f3; color: #090909; }
+.tool__icon--fg { --tile: #ffffff; color: #111111; }
+
+/* ---------- Contact section (closing statement) ----------------------------------------- */
+.contact {
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(3rem, 7vw, 5.5rem);
+  text-align: center;
+}
+.contact__title {
+  font-size: clamp(4.4rem, 12vw, 8.8rem);
+}
+.contact__intro {
+  max-width: 36rem;
+  margin: 1.1rem auto 0;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+}
+
+.contact__stage {
+  position: relative;
+  width: min(100%, 58rem);
+  margin: clamp(3.5rem, 7vw, 5rem) auto 0;
+}
+.contact__panel {
+  position: relative;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.25rem);
+  border: 3px solid var(--ink);
+  border-radius: 6px 12px 8px 14px / 12px 6px 14px 8px;
+  background: var(--yellow);
+  box-shadow: 10px 10px 0 var(--ink);
+}
+.contact__kicker {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+}
+.contact__cta {
+  margin: 0.4rem 0 1.6rem;
+  font-size: clamp(5rem, 16vw, 11.5rem);
+}
+.contact__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  padding-top: 1.4rem;
+  border-top: 2px solid var(--ink);
+  text-align: left;
+}
+.contact__label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font: 700 0.66rem/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.contact__value {
+  display: inline-block;
+  font: 700 1.02rem/1.3 var(--font-body);
+  overflow-wrap: anywhere;
+  background: linear-gradient(currentColor 0 0) left bottom / 0 2px no-repeat;
+  transition: background-size 0.3s var(--ease);
+}
+.contact__value:hover {
+  background-size: 100% 2px;
+}
+
+/* sticky note that overlaps the panel */
+.note-card {
+  position: absolute;
+  z-index: 4;
+  top: -3.2rem;
+  left: -4%;
+  width: min(17.5rem, 70%);
+  padding: 1.1rem 1.1rem 1rem;
+  background: var(--lavender);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+  text-align: left;
+  transform: rotate(-4deg);
+}
+.note-card__who {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  font: 700 0.9rem/1.2 var(--font-body);
+}
+.note-card__avatar {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+.note-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 12%;
+  transform: scale(1.5);
+  transform-origin: 48% 20%;
+}
+.note-card p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* ---------- Footer ----------------------------------------------------------------------- */
+.site-footer {
+  padding: clamp(2rem, 5vw, 3rem) 0 1.5rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom, transparent 0 31px, var(--paper-line) 31px 32px);
+}
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+}
+.footer__name {
+  font-size: clamp(3.2rem, 8vw, 5rem);
+}
+.footer__role {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.footer__role::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.footer__side {
+  display: grid;
+  justify-items: end;
+  gap: 1.2rem;
+}
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.6rem;
+}
+.footer__nav a {
+  font: 700 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(currentColor 0 0) left bottom / 0 2px no-repeat;
+  padding-bottom: 0.3rem;
+  transition: background-size 0.28s var(--ease);
+}
+.footer__nav a:hover {
+  background-size: 100% 2px;
+}
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.footer__pill {
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: #e8e0cb;
+  color: var(--ink);
+  font: 700 0.68rem/1 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+.footer__pill:hover {
+  background: var(--yellow);
+}
+
+/* ---------- Responsive: components --------------------------------------------------------- */
+@media (max-width: 1020px) {
+  .nav__socials {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .folder__body {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .folder__media {
+    order: -1;
+  }
+  .folder__info .tags {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .contact__list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .note-card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(18rem, 100%);
+    margin: 0 auto 1.75rem;
+  }
+  .footer__side {
+    justify-items: start;
+  }
+}
+
+/* phones: one-row nav, no hamburger needed (only four short items) */
+@media (max-width: 720px) {
+  :root {
+    --nav-h: 3.5rem;
+  }
+  .nav {
+    gap: 0.4rem;
+  }
+  .nav__links {
+    flex: 1;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+  .nav__link {
+    padding: 0.7rem 0.45rem;
+    font-size: 0.66rem;
+  }
+  .nav__link svg {
+    display: none;
+  }
+  .nav__link::after {
+    left: 0.45rem;
+    right: 0.45rem;
+    bottom: 0.25rem;
+  }
+  .nav__actions {
+    display: none;
+  }
+  .player__stamp {
+    right: -0.3rem;
+  }
+}
